@@ -1,4 +1,4 @@
-# Helpy stack for D2C.io
+# Nextcloud stack for D2C.io
 
 ## How to deploy a stack
 
@@ -8,9 +8,9 @@
 3. Fill in necessary fields (if they are, e.g. link to your repository)
 4. Click **Create hosts and services**
 
-<!-- ## Demo
+## Demo
 
-![How to deploy a stack](https://raw.githubusercontent.com/mastappl/images/master/helpy.gif) -->
+![How to deploy a stack](https://raw.githubusercontent.com/mastappl/images/master/nextcloud.gif)
 
 ## Minimal recommended configuration:
 
