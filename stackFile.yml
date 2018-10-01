@@ -1,0 +1,53 @@
+version: '1.0'
+services:
+  - name: db
+    type: postgres
+    version: 10.4
+    configuration: StandAlone
+    ports:
+      - 5432
+    username: nextcloud
+    database: nextcloud
+    userPassword: null
+    remoteAccess: false
+    deployTo:
+      - nextcloud
+
+  - name: nextcloud
+    type: docker
+    image: nextcloud
+    version: fpm
+    ports:
+      - 9000
+    remoteAccess: false
+    env:
+      POSTGRES_HOST: "{{=service('db').getMasterAlias()}}"
+      POSTGRES_DB: "{{=service('db').get('database')}}"
+      POSTGRES_USER: "{{=service('db').get('username')}}"
+      POSTGRES_PASSWORD: "{{=service('db').get('userPassword')}}"
+      NEXTCLOUD_ADMIN_USER: null
+      NEXTCLOUD_ADMIN_PASSWORD: null
+    volumes:
+      - directory: /var/www/html
+    deployTo:
+      - nextcloud
+
+  - name: web
+    type: nginx
+    version: 1.14
+    ports:
+      - 80
+      - 443
+    remoteAccess: true
+    serviceFiles:
+      - name: nextcloud
+        static: true
+        src: ./configs/nextcloud.conf
+    deployTo:
+      - nextcloud
+
+hosts:
+  - name: nextcloud
+    requirements:
+      cores: 1
+      memory: 2
