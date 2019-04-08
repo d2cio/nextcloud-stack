@@ -27,6 +27,7 @@ services:
       POSTGRES_PASSWORD: "{{=service('db').get('userPassword')}}"
       NEXTCLOUD_ADMIN_USER: null
       NEXTCLOUD_ADMIN_PASSWORD: null
+      NEXTCLOUD_TRUSTED_DOMAINS: "{{=service('nextcloud').getNginxDomain()}}"
     volumes:
       - directory: /var/www/html
     deployTo:
@@ -34,7 +35,7 @@ services:
 
   - name: web
     type: nginx
-    version: 1.14
+    version: 1.15
     ports:
       - 80
       - 443
