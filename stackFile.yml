@@ -30,6 +30,7 @@ services:
       NEXTCLOUD_TRUSTED_DOMAINS: "{{=service('nextcloud').getNginxDomain()}}"
     volumes:
       - directory: /var/www/html
+    volumesUID: 33
     deployTo:
       - nextcloud
 
